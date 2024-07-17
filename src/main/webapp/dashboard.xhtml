@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<!--      xmlns:f="http://xmlns.jcp.org/jsf/core"-->
+<!--      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"-->
+
+
+<h:head>
+    <title>Dashboard</title>
+    <link href="styles/style.css" rel="stylesheet" type="text/css"/>
+</h:head>
+
+<h:body>
+    <div class="background">
+        <div class=" header-container" >
+
+
+                <p:outputPanel  >
+                    <h:outputText styleClass="header" value="Willkommen zurück, "/>
+                    <br/>
+                    <h:outputText styleClass="userinfo"
+                                  value="  #{authenticationBean.user.savior.firstName} #{authenticationBean.user.savior.lastName}"/>
+                </p:outputPanel >
+                <h:form>
+                    <p:commandLink action="#{dashboardBean.goToHomePage}" value="Homepage" styleClass="link"/>
+                    <p:commandLink action="#{dashboardBean.signout}" value="Signout" styleClass="link"/>
+                </h:form>
+
+        </div>
+
+
+        <div class="main-container">
+<!--            <p:panel styleClass="card" > &lt;!&ndash; Adjusted height calculation &ndash;&gt;-->
+<!--                <h5>On-Demand Loading</h5>-->
+<!--                <p:tabView dynamic="true" cache="true" activeIndex='#{dashboardBean.activeTab()}'>-->
+<!--                    <p:ajax event="tabChange" listener="#{dashboardBean.onTabChanged}" />-->
+<!--                    <p:tab title="Gemeldete Netze">-->
+<!--                        <p class="m-0">-->
+<!--&lt;!&ndash;                            <ui:include src="/dashboard/tabs/reportedNets.xhtml"/>&ndash;&gt;-->
+<!--                        </p>-->
+<!--                    </p:tab>-->
+<!--                    <p:tab title="Netze in Rettung">-->
+<!--                        <p class="m-0">-->
+<!--&lt;!&ndash;                            <ui:include src="/dashboard/tabs/savingNets.xhtml"/>&ndash;&gt;-->
+<!--                        </p>-->
+<!--                    </p:tab>-->
+<!--                    <p:tab title="Meine Rettungsnetze">-->
+<!--                        <p class="m-0">-->
+<!--&lt;!&ndash;                            <ui:include src="/dashboard/tabs/myRescueNets.xhtml"/>&ndash;&gt;-->
+<!--                        </p>-->
+<!--                    </p:tab>-->
+<!--                </p:tabView>-->
+<!--            </p:panel>-->
+        </div>
+
+        <p:panel styleClass="footer-container">
+            <p>Footer Content Here</p>
+        </p:panel>
+    </div>
+</h:body>
+</html>
