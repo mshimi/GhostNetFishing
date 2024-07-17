@@ -3,62 +3,130 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-<!--      xmlns:f="http://xmlns.jcp.org/jsf/core"-->
-<!--      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"-->
-
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
     <title>Dashboard</title>
-    <link href="styles/style.css" rel="stylesheet" type="text/css"/>
-</h:head>
+<!--    <link href="styles/style.css" rel="stylesheet" type="text/css"/>-->
 
+    <h:outputStylesheet>
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+        .background {
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: top;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            height: 100%;
+        }
+        .header-container {
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.5);
+            padding: 5px 10px;
+            flex: 0 0 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .main-container {
+            border-radius: 10px;
+            margin: 20px;
+            flex: 1 1 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+            height: 100%;
+
+        }
+        .link {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .link:hover {
+            color: #333;
+        }
+        .header-container .header {
+            font-weight: bolder;
+            font-size: x-large;
+        }
+        .userinfo {
+            font-weight: normal;
+            font-size: large;
+        }
+        .scrollable-content {
+            flex: 1 1 100% 100%;
+            overflow-y: auto; /* Make this container scrollable */
+            padding: 10px; /* Optional: Add padding for content */
+            /*height: 100%;*/
+        }
+        .footer-container {
+            /*border-radius: 0 0 10px 10px;*/
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.5);
+            padding: 5px 20px;
+            flex: 0 0 5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            height: 100%;
+        }
+        .ui-panel-content{
+            height: 100%;
+        }
+
+        .ui-button {
+            margin-right: 0.5em !important;
+        }
+    </h:outputStylesheet>
+</h:head>
 <h:body>
     <div class="background">
-        <div class=" header-container" >
-
-
-                <p:outputPanel  >
-                    <h:outputText styleClass="header" value="Willkommen zurück, "/>
-                    <br/>
-                    <h:outputText styleClass="userinfo"
-                                  value="  #{authenticationBean.user.savior.firstName} #{authenticationBean.user.savior.lastName}"/>
-                </p:outputPanel >
-                <h:form>
-                    <p:commandLink action="#{dashboardBean.goToHomePage}" value="Homepage" styleClass="link"/>
-                    <p:commandLink action="#{dashboardBean.signout}" value="Signout" styleClass="link"/>
-                </h:form>
-
+        <div class="header-container">
+            <p:outputPanel>
+                <h:outputText styleClass="header" value="Willkommen zurück, "/>
+                <br/>
+                <h:outputText styleClass="userinfo"
+                              value="  #{authenticationBean.user.savior.firstName} #{authenticationBean.user.savior.lastName}"/>
+            </p:outputPanel>
+            <h:form id="appbar-form">
+                <p:commandLink action="#{dashboardBean.goToHomePage}" value="Homepage" styleClass="link"/>
+                <p:commandLink action="#{dashboardBean.signout}" value="Signout" styleClass="link"/>
+            </h:form>
         </div>
+        <p:outputPanel id="main-container" layout="block" styleClass="main-container" style="height: 100%; background-color: white;">
+            <div class="card" style="height: 100%; background-color: white; padding: 10px; ">
+                    <h1>Shea Sepherd</h1>
+
+                <p:tabView>
+                    <p:tab id="dashboard-map" title="Tabelle">
+                        <ui:include src="/templates/dashboard_table.xhtml"/>
+                    </p:tab>
+                    <p:tab id="dashboard-table" title="Karte">
+                        <ui:include src="/templates/dashboard_map.xhtml"/>
+                    </p:tab>
 
 
-        <div class="main-container">
-<!--            <p:panel styleClass="card" > &lt;!&ndash; Adjusted height calculation &ndash;&gt;-->
-<!--                <h5>On-Demand Loading</h5>-->
-<!--                <p:tabView dynamic="true" cache="true" activeIndex='#{dashboardBean.activeTab()}'>-->
-<!--                    <p:ajax event="tabChange" listener="#{dashboardBean.onTabChanged}" />-->
-<!--                    <p:tab title="Gemeldete Netze">-->
-<!--                        <p class="m-0">-->
-<!--&lt;!&ndash;                            <ui:include src="/dashboard/tabs/reportedNets.xhtml"/>&ndash;&gt;-->
-<!--                        </p>-->
-<!--                    </p:tab>-->
-<!--                    <p:tab title="Netze in Rettung">-->
-<!--                        <p class="m-0">-->
-<!--&lt;!&ndash;                            <ui:include src="/dashboard/tabs/savingNets.xhtml"/>&ndash;&gt;-->
-<!--                        </p>-->
-<!--                    </p:tab>-->
-<!--                    <p:tab title="Meine Rettungsnetze">-->
-<!--                        <p class="m-0">-->
-<!--&lt;!&ndash;                            <ui:include src="/dashboard/tabs/myRescueNets.xhtml"/>&ndash;&gt;-->
-<!--                        </p>-->
-<!--                    </p:tab>-->
-<!--                </p:tabView>-->
-<!--            </p:panel>-->
-        </div>
+                </p:tabView>
 
-        <p:panel styleClass="footer-container">
+
+
+            </div>
+        </p:outputPanel>
+        <div class="footer-container">
             <p>Footer Content Here</p>
-        </p:panel>
+        </div>
     </div>
 </h:body>
 </html>

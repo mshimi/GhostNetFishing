@@ -1,5 +1,6 @@
-package com.example.ghostfishingnet.beans;
+package com.example.ghostfishingnet.beans.authentication;
 
+import com.example.ghostfishingnet.beans.authentication.AuthenticationBean;
 import com.example.ghostfishingnet.domain.auth.AuthenticatedState;
 import com.example.ghostfishingnet.domain.auth.Authstate;
 import com.example.ghostfishingnet.domain.auth.UnAuthenticatedState;

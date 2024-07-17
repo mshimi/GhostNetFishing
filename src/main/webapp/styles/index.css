@@ -1,0 +1,118 @@
+
+body {
+    height: 100%;
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    width: 100%;
+    margin-top: 0;
+}
+
+
+@media (min-width: 1200px) {
+    .main-container {
+        width: 75%;
+    }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+    .main-container {
+        width: 85%;
+    }
+}
+@media (max-width: 767px) {
+    .main-container {
+        width: 95%;
+    }
+}
+.main-container {
+    margin: 0 auto;
+    padding: 15px;
+}
+
+#header-container, #header-subtext {
+    justify-content: center;
+    display: grid;
+    text-align: center;
+    margin-top: 0;
+    padding-top: 0;
+    gap: 0;
+}
+
+/*h1 , h2, h3 {*/
+/*    text-align: center;*/
+/*}*/
+h1 {
+    color: ghostwhite;
+    font-size: xxx-large;
+}
+
+
+
+input {
+    width: 100%;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+
+.header-2, .info-text {
+    font-weight: normal;
+    color: darkgrey;
+    font-size: 0.75em;
+}
+
+.header-2 {
+    font-weight: bold;
+    font-size: 1em;
+}
+/* Header Styles */
+.header-container {
+    background-color: rgba(51, 51, 51, 0.8); /* Background color with opacity */
+    color: white;
+    padding: 20px;
+    text-align: left; /* Align h1 to the left */
+    border-bottom: 3px solid #555;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.header-actions {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    /*transform: translateY(-50%); !* Center vertically *!*/
+}
+
+.dashboard-link {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    border-radius: 4px;
+}
+
+.dashboard-link:hover {
+    background-color: #45a049;
+}
+
+.header-content {
+    text-align: center; /* Center align the content */
+    padding: 20px;
+}
+
+.header-subtitle {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #ddd;
+}
+
+.header-tagline {
+    margin-bottom: 0;
+    font-size: 1.2em;
+    color: #ccc;
+}

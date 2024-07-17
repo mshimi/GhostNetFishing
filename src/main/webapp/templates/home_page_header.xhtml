@@ -4,8 +4,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-   <f:view>
-      <h:outputLabel value="Hello, world"/>
-   </f:view>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view>
+        <p:outputPanel id="header-container" layout="block" styleClass="header-container">
+            <h1 class="header-title">Shea Sepherd</h1>
+        </p:outputPanel>
+        <p:outputPanel id="header-actions" layout="block" styleClass="header-actions">
+            <h:link outcome="dashboard" styleClass="dashboard-link">
+                <h:outputText value="Einloggen" rendered="#{!authenticationBean.loggedIn}" />
+                <h:outputText value="zur Berger-Dashboard" rendered="#{authenticationBean.loggedIn}" />
+            </h:link>
+        </p:outputPanel>
+        <p:outputPanel id="header-content" layout="block" styleClass="header-content">
+            <h2 class="header-subtitle">
+                Helfen Sie uns, Geisternetze zu finden und unseren Planeten zu retten.
+            </h2>
+            <h3 class="header-tagline">
+                Jede Hilfe wird geschätzt, um unsere Erde zu schützen
+            </h3>
+        </p:outputPanel>
+    </f:view>
+
 </html>

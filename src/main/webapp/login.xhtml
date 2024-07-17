@@ -1,11 +1,94 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-   <f:view>
-      <h:outputLabel value="Hello, world"/>
-   </f:view>
+<h:head>
+   <title>Login</title>
+   <style>
+      body, html {
+         height: 100%;
+         margin: 0;
+         font-family: Arial, sans-serif;
+
+      }
+      h1 {
+         margin-top: 20px;
+         margin-bottom: 50px;
+         text-align: center;
+      }
+      .background {
+         background-image: url(images/background.jpg);
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: top;
+         height: 100%;
+         width: 100%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+      }
+      .login-container {
+         background: rgba(255, 255, 255, 0.5); /* White background with 80% transparency */
+         padding: 20px;
+         height: 40%;
+         border-radius: 10px; /* Rounded edges */
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: adds a slight shadow for better contrast */
+      }
+      .login-container h2 {
+         text-align: center;
+         margin-bottom: 20px;
+      }
+      .login-button {
+         width: calc(100% - 40px); /* Full width minus margins */
+         margin: 20px;
+         background-color: black;
+         color: white;
+         font-weight: bold;
+         padding: 10px;
+         border: none;
+         border-radius: 5px; /* Optional: rounded edges for the button */
+         cursor: pointer;
+         text-align: center;
+      }
+      .login-button:hover {
+         background-color: #333; /* Darker background on hover */
+      }
+
+.register-container {
+   align-items: center;
+}
+   </style>
+</h:head>
+<h:body>
+   <div class="background">
+
+      <div class="login-container">
+         <h1>Shea Sepherd</h1>
+         <h2>Einloggen</h2>
+         <h:form>
+            <h:panelGrid columns="2" cellpadding="5">
+               <h:outputLabel for="email" value="Email:" />
+               <h:inputText id="email" value="#{loginBean.email}" />
+
+               <h:outputLabel for="password" value="Passwort:" />
+               <h:inputSecret id="password" value="#{loginBean.password}" />
+            </h:panelGrid>
+            <h:commandButton value="Einloggen" action="#{loginBean.login}" styleClass="login-button" />
+            <h:messages globalOnly="true" style="color:red;" />
+         </h:form>
+
+         <p:divider  align="center" >
+            <b>ODER</b>
+         </p:divider>
+        <div class="register-container" style="text-align: center">
+           <p>
+              kein Konto? <h:link outcome="register.xhtml">registrieren</h:link>
+           </p>
+        </div>
+      </div>
+   </div>
+
+</h:body>
 </html>

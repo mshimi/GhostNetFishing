@@ -1,4 +1,4 @@
-package com.example.ghostfishingnet.beans;
+package com.example.ghostfishingnet.beans.savior;
 
 import com.example.ghostfishingnet.domain.nets.FilterMenuItem;
 import com.example.ghostfishingnet.domain.nets.TableFilterItem;

@@ -1,2 +1,5 @@
-package com.example.ghostfishingnet.domain.auth;public class Authstate {
+package com.example.ghostfishingnet.domain.auth;
+
+public abstract class Authstate {
 }
+

@@ -1,4 +1,4 @@
-package com.example.ghostfishingnet.beans;
+package com.example.ghostfishingnet.beans.authentication;
 
 
 import com.example.ghostfishingnet.entities.User;

@@ -1,6 +1,6 @@
-package com.example.ghostfishingnet.domain.auth.controller;
+package com.example.ghostfishingnet.util;
 
-import com.example.ghostfishingnet.beans.AuthenticationBean;
+import com.example.ghostfishingnet.beans.authentication.AuthenticationBean;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PhaseEvent;
 import jakarta.faces.event.PhaseId;
@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+
 
 public class AuthenticationPhaseListener implements PhaseListener {
 
@@ -20,6 +21,7 @@ public class AuthenticationPhaseListener implements PhaseListener {
         FacesContext facesContext = event.getFacesContext();
         String viewId = facesContext.getViewRoot().getViewId();
 
+
         if ("/dashboard.xhtml".equals(viewId)) {
             if (!authenticationBean.isLoggedIn()) {
                 try {
@@ -27,7 +29,18 @@ public class AuthenticationPhaseListener implements PhaseListener {
                     ((HttpServletResponse) facesContext.getExternalContext().getResponse()).sendRedirect(contextPath + "/login.xhtml");
                     facesContext.responseComplete();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                   throw  new RuntimeException(e);
+                }
+            }
+            }
+        else if ("/login.xhtml".equals(viewId) || "/register.xhtml".equals(viewId)) {
+            if(authenticationBean.isLoggedIn()){
+                try {
+                    String contextPath = facesContext.getExternalContext().getRequestContextPath();
+                    ((HttpServletResponse) facesContext.getExternalContext().getResponse()).sendRedirect(contextPath + "/dashboard.xhtml");
+                    facesContext.responseComplete();
+                } catch (IOException e) {
+                    throw  new RuntimeException(e);
                 }
             }
         }
@@ -35,7 +48,7 @@ public class AuthenticationPhaseListener implements PhaseListener {
 
     @Override
     public void beforePhase(PhaseEvent event) {
-        // No action required before phase
+
     }
 
     @Override

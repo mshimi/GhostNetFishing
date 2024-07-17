@@ -3,9 +3,35 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-   <f:view>
-      <h:outputLabel value="Hello, world"/>
-   </f:view>
+<f:view>
+    <h:form>
+    <p:dataTable id="reported-nets-table" var="net" value="#{reportedNetsTableBean.nets}"  rowKey="#{net.id}">
+
+        <p:column headerText="#"  >
+            <h:outputText value="#{net.id}" />
+        </p:column >
+
+        <p:column headerText="Größe">
+            <h:outputText value="#{net.size}" />
+        </p:column>
+        <p:column headerText="latitude">
+            <h:outputText value="#{net.latitude}" />
+        </p:column>
+        <p:column headerText="longitude">
+            <h:outputText value="#{net.longitude}" />
+        </p:column>
+
+        <p:column headerText="Zustand">
+            <ui:include src="/templates/net-status.xhtml">
+                <ui:param name="state" value="#{net.state}" />
+                <ui:param name="stateText" value="#{net.stateText}" />
+            </ui:include>
+        </p:column>
+
+    </p:dataTable>
+    </h:form>
+</f:view>
 </html>

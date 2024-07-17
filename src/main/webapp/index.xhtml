@@ -10,14 +10,39 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 
 <h:head>
-    <title>$Title$</title>
+
+    <title>Shea Sepherd - Home</title>
+
+    <link href="styles/index.css" rel="stylesheet" type="text/css"/>
+
+    <script src="http://maps.google.com/maps/api/js?sensor=false"
+            type="text/javascript"></script>
 </h:head>
 
 <h:body>
-  $END$
+    <ui:insert name="header">
+        <ui:include src="/templates/home_page_header.xhtml"/>
+    </ui:insert>
+    <div class="card main-container">
+        <p:tabView>
+            <p:tab id="reportedNetsTab" title="Gemeldete Netze">
+                <ui:include src="/templates/reported_nets_table.xhtml"/>
+            </p:tab>
+            <p:tab id="mapTab" title="Karte">
+                <ui:include src="/templates/reported_nets_map.xhtml"/>
+            </p:tab>
+            <p:tab id="newNetworksTab" title="Neue Netz Melden" >
+                <ui:include src="/templates/new_net_form.xhtml"/>
+            </p:tab>
+        </p:tabView>
+    </div>
 </h:body>
 
 </html>

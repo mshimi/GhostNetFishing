@@ -1,5 +1,6 @@
-package com.example.ghostfishingnet.beans;
+package com.example.ghostfishingnet.beans.authentication;
 
+import com.example.ghostfishingnet.beans.authentication.AuthenticationBean;
 import com.example.ghostfishingnet.entities.User;
 import com.example.ghostfishingnet.repositories.UserRepository;
 import jakarta.enterprise.context.RequestScoped;

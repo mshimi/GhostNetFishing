@@ -6,18 +6,19 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:form id="new-net-form" onsubmit="#{reportNetBean.reset()}"  >
+    <h:form id="new-net-form" styleClass="new-net-form" onsubmit="return #{reportNetBean.reset()}"  >
 
         <p:panel id="new-net-panel" >
             <f:facet name="header">
                 <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
                     <div class="panel-title" style="flex: 1;">Melden Sie neue Netz</div>
                     <div class="panel-actions">
-                        <p:commandButton value="zurücksetzen" icon="pi pi-refresh"  update="new-net-form"
-                                         action="#{reportNetBean.reset}"
-                                         ajax="true"
+                        <p:commandButton value="zurücksetzen" icon="pi pi-refresh"
+                                         action="#{reportNewNetFormBean.deleteFormValues}"
+                                         process="@this"
+                                         update="j_idt14:new-net-form"
+
                                          styleClass="mr-2 ui-button-outlined">
-                            <p:resetInput target="new-net-form" clearModel="true"/>
                         </p:commandButton>
                     </div>
                 </div>
@@ -34,7 +35,7 @@
                         <p:outputLabel for="size" value="Größe:"/>
                     </p:column>
                     <p:column colspan="3">
-                        <p:inputText id="size" placeholder="in Meter" value="#{reportNetBean.size}"
+                        <p:inputText id="size" placeholder="in Meter" value="#{reportNewNetFormBean.size}"
                                      required="true"/>
                     </p:column>
                 </p:row>
@@ -43,7 +44,7 @@
                         <p:outputLabel for="isAnonyme" value="Anynoyme Melden"/>
                     </p:column>
                     <p:column colspan="3">
-                        <p:selectBooleanCheckbox id="isAnonyme" value="#{reportNetBean.anonymous}">
+                        <p:selectBooleanCheckbox id="isAnonyme" value="#{reportNewNetFormBean.anonymous}">
                             <p:ajax update="firstName lastName telephone telephone-label firstName-label lastName-label"/>
                         </p:selectBooleanCheckbox>
                     </p:column>
@@ -53,9 +54,9 @@
                         <p:outputLabel id="firstName-label" for="firstName" value="Vorname:"/>
                     </p:column>
                     <p:column colspan="3">
-                        <p:inputText id="firstName" value="#{reportNetBean.reporterFirstName}"
-                                     required="#{!reportNetBean.anonymous}" disabled="#{reportNetBean.anonymous}">
-                            <f:validateLength minimum="2" maximum="30" disabled="#{reportNetBean.anonymous}"/>
+                        <p:inputText id="firstName" value="#{reportNewNetFormBean.reporterFirstName}"
+                                     required="#{!reportNewNetFormBean.anonymous}" disabled="#{reportNewNetFormBean.anonymous}">
+                            <f:validateLength minimum="2" maximum="30" disabled="#{reportNewNetFormBean.anonymous}"/>
                         </p:inputText>
                     </p:column>
                 </p:row>
@@ -64,9 +65,9 @@
                         <p:outputLabel id="lastName-label" for="lastName" value="Nachname:"/>
                     </p:column>
                     <p:column colspan="3">
-                        <p:inputText id="lastName" value="#{reportNetBean.reporterLastName}" disabled="#{reportNetBean.anonymous}"
-                                     required="#{!reportNetBean.anonymous}">
-                            <f:validateLength minimum="2" maximum="30" disabled="#{reportNetBean.anonymous}"/>
+                        <p:inputText id="lastName" value="#{reportNewNetFormBean.reporterLastName}" disabled="#{reportNewNetFormBean.anonymous}"
+                                     required="#{!reportNewNetFormBean.anonymous}">
+                            <f:validateLength minimum="2" maximum="30" disabled="#{reportNewNetFormBean.anonymous}"/>
                         </p:inputText>
                     </p:column>
                 </p:row>
@@ -75,8 +76,8 @@
                         <p:outputLabel id="telephone-label" for="telephone" value="Telefon:"/>
                     </p:column>
                     <p:column colspan="3">
-                        <p:inputText id="telephone" value="#{reportNetBean.reporterTelephone}" disabled="#{reportNetBean.anonymous}"
-                                     required="#{!reportNetBean.anonymous}">
+                        <p:inputText id="telephone" value="#{reportNewNetFormBean.reporterTelephone}" disabled="#{reportNewNetFormBean.anonymous}"
+                                     required="#{!reportNewNetFormBean.anonymous}">
                             <f:validateRegex pattern="^\+?[0-9]{1,3}[\s-]?[0-9]{3,14}$" >
                                 Hello
                             </f:validateRegex>
@@ -102,10 +103,10 @@
                 <p:column>
                     <p:panelGrid columns="2">
                         <p:outputLabel for="latitude" value="Breitengrad:"/>
-                        <p:inputText id="latitude" value="#{reportNetBean.latitude}" required="true">
+                        <p:inputText id="latitude" value="#{reportNewNetFormBean.latitude}" required="true">
                         </p:inputText>
                         <p:outputLabel for="longitude" value="Längengrad:"/>
-                        <p:inputText id="longitude" value="#{reportNetBean.longitude}" required="true">
+                        <p:inputText id="longitude" value="#{reportNewNetFormBean.longitude}" required="true">
                         </p:inputText>
                     </p:panelGrid>
                 </p:column>
@@ -129,7 +130,7 @@
 
             </p:divider>
 
-            <p:commandButton value="Jetzt melden" icon="ui-icon-check" action="#{reportNetBean.save}"
+            <p:commandButton value="Jetzt melden" icon="ui-icon-check" action="#{reportNewNetFormBean.save}"
                              update="new-net-form"
                              ajax="true"
                              />
@@ -144,7 +145,7 @@
                 <p:gmap id="gmap" center="51.5370063, 7.1651407" zoom="15" type="HYBRID"
                         style="width:100%;height:400px">
                     <!--                        <p:ajax event="pointSelect" listener="#{reportNetBean.onPointSelect}" update="latitude longitude" />-->
-                    <p:ajax event="pointSelect" listener="#{reportNetBean.onPointSelect}"
+                    <p:ajax event="pointSelect" listener="#{reportNewNetFormBean.onPointSelect}"
                             update="growl latitude longitude" oncomplete="PF('mapDialog').hide()"/>
                 </p:gmap>
 
