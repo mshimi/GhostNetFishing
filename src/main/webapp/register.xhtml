@@ -1,68 +1,74 @@
-
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-
-<h:head >
+<h:head>
     <link href="styles/style.css" rel="stylesheet" type="text/css"/>
-
-    <title>Register</title>
-    <style>
-
-    </style>
+    <title>Registrieren</title>
 </h:head>
 <h:body>
     <div class="background">
-        <div class="register-container">
+        <div class="login-container register-container">
             <h1>Shea Sepherd</h1>
             <h2>Registrieren</h2>
             <h:form>
-                <div class="input-container">
-                    <h:outputLabel for="firstName" value="Vorname:" styleClass="input-label" />
-                    <h:inputText required="true" id="firstName" value="#{registerBean.firstName}" styleClass="input-field">
-                        <f:validateLength minimum="2" />
-                    </h:inputText>
-                </div>
-                <h:message for="firstName" styleClass="validation-message" />
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="firstName" value="Vorname:" styleClass="input-label"/>
+                    <h:panelGroup layout="block">
+                        <h:inputText required="true" id="firstName" value="#{registerBean.firstName}"
+                                     styleClass="input-field">
+                            <f:validateLength minimum="2"/>
+                        </h:inputText>
+                        <h:message for="firstName" styleClass="validation-message"/>
+                    </h:panelGroup>
 
-                <div class="input-container">
-                    <h:outputLabel for="lastName" value="Nachname:" styleClass="input-label" />
-                    <h:inputText required="true" id="lastName" value="#{registerBean.lastName}" styleClass="input-field" />
-                </div>
-                <h:message for="lastName" styleClass="validation-message" />
+                    <h:outputLabel for="lastName" value="Nachname:" styleClass="input-label"/>
+                    <h:panelGroup layout="block">
+                        <h:inputText required="true" id="lastName" value="#{registerBean.lastName}"
+                                     styleClass="input-field"/>
+                        <h:message for="lastName" styleClass="validation-message"/>
+                    </h:panelGroup>
 
-                <div class="input-container">
-                    <h:outputLabel for="telephone" value="Telefon:" styleClass="input-label" />
-                    <h:inputText required="true" id="telephone" value="#{registerBean.telephone}" styleClass="input-field">
-                        <f:validateRegex pattern="^\+?[0-9\s]+$" />
-                    </h:inputText>
-                </div>
-                <h:message for="telephone" styleClass="validation-message" />
+                    <h:outputLabel for="telephone" value="Telefon:" styleClass="input-label"/>
+                    <h:panelGroup layout="block">
+                        <h:inputText required="true" id="telephone" value="#{registerBean.telephone}"
+                                     styleClass="input-field">
+                            <f:validateRegex pattern="^\+?[0-9\s]+$"/>
+                        </h:inputText>
+                        <h:message for="telephone" styleClass="validation-message"/>
+                    </h:panelGroup>
 
-                <div class="input-container">
-                    <h:outputLabel for="email" value="Email:" styleClass="input-label" />
-                    <h:inputText required="true" id="email" value="#{registerBean.email}" styleClass="input-field">
-                        <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$" />
-                    </h:inputText>
-                </div>
-                <h:message for="email" styleClass="validation-message" />
+                    <h:outputLabel for="email" value="E-Mail:" styleClass="input-label"/>
+                    <h:panelGroup layout="block">
+                        <h:inputText required="true" id="email" value="#{registerBean.email}" styleClass="input-field">
+                            <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$"/>
+                        </h:inputText>
+                        <h:message for="email" styleClass="validation-message"/>
+                    </h:panelGroup>
 
-                <div class="input-container">
-                    <h:outputLabel for="password" value="Passwort:" styleClass="input-label" />
-                    <h:inputSecret required="true" id="password" value="#{registerBean.password}" styleClass="input-field">
-                        <f:validateLength minimum="7" />
-                    </h:inputSecret>
-                </div>
-                <h:message for="password" styleClass="validation-message" />
+                    <h:outputLabel for="password" value="Passwort:" styleClass="input-label"/>
+                    <h:panelGroup layout="block">
+                        <h:inputSecret required="true" id="password" value="#{registerBean.password}"
+                                       styleClass="input-field">
+                            <f:validateLength minimum="7"/>
+                        </h:inputSecret>
+                        <h:message for="password" styleClass="validation-message"/>
+                    </h:panelGroup>
+                </h:panelGrid>
 
-                <h:commandButton value="Registrieren" action="#{registerBean.register}" styleClass="register-button" />
-                <h:messages globalOnly="true" style="color:red;" />
+                <h:commandButton value="Registrieren" action="#{registerBean.register}" styleClass="login-button"/>
+                <h:messages globalOnly="true" style="color:red;"/>
             </h:form>
-            <div class="login-container">
+
+            <p:divider align="center">
+                <b>ODER</b>
+            </p:divider>
+
+            <div class="footer-container">
                 <p>
-                    bereits ein Konto? <h:link outcome="login.xhtml">einloggen</h:link>
+                    Haben Sie bereits ein Konto? <h:link outcome="login.xhtml">Einloggen</h:link>
                 </p>
             </div>
         </div>

@@ -12,7 +12,18 @@
 
     <div class="card">
         <h:form id="map-form">
-        <p:gmap id="map" center="#{dashboardMapBean.startingPosition.position}" zoom="10" type="SATELLITE" style="width:100%;height:65vh;"
+
+            <p:toolbar  >
+                <p:toolbarGroup align="left">
+                    <p:selectBooleanCheckbox id="myNetsCheckbox" value="#{dashboardMapBean.isAllNets}"  itemLabel="#{dashboardMapBean.isAllNets ?    'Alle Netze': 'Nur gemeldete Netze'}"   >
+                        <p:ajax update="@this @form:map" listener="#{dashboardMapBean.onFilterChange}" />
+                    </p:selectBooleanCheckbox>
+
+                </p:toolbarGroup>
+
+            </p:toolbar>
+
+        <p:gmap id="map" center="#{dashboardMapBean.startingPosition.position}" zoom="13" type="SATELLITE" style="width:100%;height:50vh;"
                 model="#{dashboardMapBean.simpleModel}">
 
             <p:ajax event="overlaySelect" listener="#{dashboardMapBean.onMarkerSelect}"  />
@@ -41,7 +52,7 @@
 
                     </p:panelGrid>
 
-                    <p:commandButton   icon="pi pi-plus" value="Zur Rettungsliste hinzufügen">
+                    <p:commandButton rendered="#{dashboardMapBean.selectedMarker.data.state.toString() == 'Reported'}"   icon="pi pi-plus" value="Zur Rettungsliste hinzufügen">
                         <p:ajax listener="#{dashboardMapBean.addNetToMyRescueList}" update="@form"  />
                     </p:commandButton>
 

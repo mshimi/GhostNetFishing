@@ -22,9 +22,7 @@
                     />
 
                 </p:selectOneMenu>
-                <p:divider layout="vertical"/>
-                <p:selectBooleanCheckbox id="myNetsCheckbox" value="#{dashBoardTableBean.showOnlyMyNets}" />
-                <p:outputLabel for="myNetsCheckbox" value="Show Only My Nets" />
+
             </p:toolbarGroup>
 
         </p:toolbar>
@@ -103,9 +101,18 @@
                     <h:outputText value="Longitude:" />
                     <h:outputText value="#{dashBoardTableBean.selectedNet.longitude}" />
                     <h:outputText value="State:" />
-                    <h:outputText value="#{dashBoardTableBean.selectedNet.stateText}" />
+                    <p:outputPanel>
+                        <ui:include src="/templates/net-status.xhtml">
+                            <ui:param name="state" value="#{dashBoardTableBean.selectedNet.state}" />
+                            <ui:param name="stateText" value="#{dashBoardTableBean.selectedNet.stateText}" />
+                        </ui:include>
+                    </p:outputPanel>
                     <h:outputText value="Reporter:" rendered="#{not empty dashBoardTableBean.selectedNet.reporter}"/>
                     <h:outputText value="#{dashBoardTableBean.selectedNet.reporter.firstName} #{dashBoardTableBean.selectedNet.reporter.lastName}" rendered="#{not empty dashBoardTableBean.selectedNet.reporter}"/>
+
+                    <h:outputText value="Bergender:" rendered="#{not empty dashBoardTableBean.selectedNet.savior}"/>
+                    <h:outputText value="#{dashBoardTableBean.selectedNet.savior.firstName} #{dashBoardTableBean.selectedNet.savior.lastName}" rendered="#{not empty dashBoardTableBean.selectedNet.savior}"/>
+
                 </p:panelGrid>
             </p:outputPanel>
         </p:dialog>

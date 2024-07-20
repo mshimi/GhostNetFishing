@@ -2,6 +2,7 @@ package com.example.ghostfishingnet.beans.savior;
 
 import com.example.ghostfishingnet.beans.DashboardBean;
 import com.example.ghostfishingnet.entities.Net;
+import com.example.ghostfishingnet.entities.NetState;
 import com.example.ghostfishingnet.services.SavoirService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
@@ -32,6 +33,7 @@ public class DashboardMapBean implements Serializable {
 
 
 
+    private boolean isAllNets = false;
 
     private List<Net> nets;
 
@@ -57,6 +59,10 @@ public class DashboardMapBean implements Serializable {
         return simpleModel;
     }
 
+    public void onFilterChange(){
+        init();
+    }
+
 
     public StartingPosition getStartingPosition() {
         return startingPosition;
@@ -66,6 +72,10 @@ public class DashboardMapBean implements Serializable {
     private SavoirService savoirService;
 
     private List<Net> getReportedNetsNets(){
+
+        if(isAllNets){
+            return savoirService.getAllNets();
+        }
        return savoirService.getReportedNets();
     }
 
@@ -76,7 +86,9 @@ public class DashboardMapBean implements Serializable {
     private Marker<Net> mapNetToMarket (Net net){
        Marker<Net> marker = new Marker<>(new LatLng(net.getLatitude(), net.getLongitude()), "Größe: " + net.getSize() + "M" , net);
 
-
+    if(!net.getState().equals(NetState.Reported)){
+        marker.setIcon(assignMarkerIcon(net.getState()));
+    }
        marker.setClickable(true);
        return marker;
     }
@@ -113,6 +125,13 @@ public class DashboardMapBean implements Serializable {
 
     }
 
+    public boolean getIsAllNets() {
+        return isAllNets;
+    }
+
+    public void setIsAllNets(boolean allNets) {
+        isAllNets = allNets;
+    }
 
     public static class StartingPosition{
 
@@ -134,10 +153,38 @@ public class DashboardMapBean implements Serializable {
         }
 
 
+
         public String getPosition (){
 
            return lat + ", " + lon ;
         }
+    }
+
+
+    private String assignMarkerIcon(NetState netState){
+        String color ;
+        switch (netState){
+            case Removed:
+                color = "green";
+                break;
+            case Reported:
+                color = "red";
+                break;
+
+            case OnProcess:
+                color = "yellow";
+                break;
+
+            case Disappeared:
+                color = "blue";
+                break;
+
+
+
+            default: return null;
+        }
+
+        return "https://maps.google.com/mapfiles/ms/micons/"+color+"-dot.png";
     }
 
 }

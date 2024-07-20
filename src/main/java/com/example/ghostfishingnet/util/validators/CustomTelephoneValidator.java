@@ -20,6 +20,11 @@ public class CustomTelephoneValidator implements Validator<String> {
             throw new ValidatorException(msg);
         }
 
+        if(value.length() < 6){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ungültiges Telefonnummerformat", "");
+            throw new ValidatorException(msg);
+        }
+
         if (!value.matches(TELEPHONE_PATTERN)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ungültiges Telefonnummerformat", "");
             throw new ValidatorException(msg);

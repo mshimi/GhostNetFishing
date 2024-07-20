@@ -1,5 +1,6 @@
 package com.example.ghostfishingnet.beans.homepage;
 
+import com.example.ghostfishingnet.beans.authentication.AuthenticationBean;
 import com.example.ghostfishingnet.entities.Net;
 import com.example.ghostfishingnet.entities.NetReporter;
 import com.example.ghostfishingnet.services.NetService;
@@ -21,11 +22,14 @@ import java.io.Serializable;
 @ViewScoped
 public class ReportNewNetFormBean implements Serializable {
 
-
+@Inject
+    AuthenticationBean authenticationBean;
 
     @PostConstruct
     private void init(){
         anonymous = true;
+        assignAssignedUserToInputFields();
+
     }
     public Integer getSize() {
         return size;
@@ -104,6 +108,7 @@ public class ReportNewNetFormBean implements Serializable {
 
         try {
             netService.reportGhostNet(createNetObject());
+            reset();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Net reported successfully"));
 
         } catch (Exception e) {
@@ -146,13 +151,26 @@ public class ReportNewNetFormBean implements Serializable {
         this.anonymous = true;
         this.latitude = null;
         this.longitude = null;
-        this.reporterFirstName = null;
-        this.reporterLastName = null;
-        this.reporterTelephone = null;
+        if(authenticationBean.isLoggedIn()){
+            assignAssignedUserToInputFields();
+        } else {
+            this.reporterFirstName = null;
+            this.reporterLastName = null;
+            this.reporterTelephone = null;
+        }
         this.size = null;
 
 
 
+    }
+
+
+    private void assignAssignedUserToInputFields(){
+        if(authenticationBean.isLoggedIn()){
+            this.reporterFirstName = authenticationBean.getUser().getSavior().getFirstName();
+            this.reporterLastName = authenticationBean.getUser().getSavior().getLastName();
+            this.reporterTelephone = authenticationBean.getUser().getSavior().getTelephone();
+        }
     }
 
 

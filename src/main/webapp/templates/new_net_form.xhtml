@@ -78,11 +78,9 @@
                     <p:column colspan="3">
                         <p:inputText id="telephone" value="#{reportNewNetFormBean.reporterTelephone}" disabled="#{reportNewNetFormBean.anonymous}"
                                      required="#{!reportNewNetFormBean.anonymous}">
-                            <f:validateRegex pattern="^\+?[0-9]{1,3}[\s-]?[0-9]{3,14}$" >
-                                Hello
-                            </f:validateRegex>
+
                             <f:validateLength minimum="5" maximum="20"  />
-                            <f:validator validatorId="customTelephoneValidator" />
+                            <f:validator validatorId="customTelephoneValidator" for="telephone" />
                             <p:message for="telephone"  />
                         </p:inputText>
 
@@ -131,7 +129,7 @@
             </p:divider>
 
             <p:commandButton value="Jetzt melden" icon="ui-icon-check" action="#{reportNewNetFormBean.save}"
-                             update="new-net-form"
+                             update="@form"
                              ajax="true"
                              />
 
