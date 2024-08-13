@@ -5,10 +5,10 @@
              version="3.0">
     <persistence-unit name="jpa-hibernate-mysql">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.example.ghostfishingnet.entities.User</class>
-        <class>com.example.ghostfishingnet.entities.Savior</class>
-        <class>com.example.ghostfishingnet.entities.Net</class>
-        <class>com.example.ghostfishingnet.entities.NetReporter</class>
+        <class>com.example.ghostfishingnet.app.entities.User</class>
+        <class>com.example.ghostfishingnet.app.entities.Savior</class>
+        <class>com.example.ghostfishingnet.app.entities.Net</class>
+        <class>com.example.ghostfishingnet.app.entities.NetReporter</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
