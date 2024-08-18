@@ -7,17 +7,19 @@ import com.example.ghostfishingnet.Authentication.domain.service.AuthenticationS
 import com.example.ghostfishingnet.app.entities.User;
 import com.example.ghostfishingnet.Authentication.application.repositories.UserRepository;
 import jakarta.ejb.Stateless;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 
 import java.util.Objects;
 
-@Stateless
+@RequestScoped
 public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
     private UserRepository userRepository;
 
 
-    public Authstate login(String email, String password){
+    @Override
+    public Authstate loginInWithEmailAndPassword(String email, String password){
       User user = userRepository.findByEmail(email);
 
       if(user != null && Objects.equals(user.getPassword(), password)){
@@ -29,7 +31,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
 
-
+    @Override
     public User register(User user) throws RuntimeException{
 
         try {

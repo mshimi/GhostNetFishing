@@ -13,12 +13,12 @@
         <div class="login-container register-container">
             <h1>Shea Sepherd</h1>
             <h2>Registrieren</h2>
-            <h:form>
+            <h:form id="registerForm">
                 <h:panelGrid columns="2">
                     <h:outputLabel for="firstName" value="Vorname:" styleClass="input-label"/>
                     <h:panelGroup layout="block">
                         <h:inputText required="true" id="firstName" value="#{registerBean.firstName}"
-                                     styleClass="input-field">
+                                     styleClass="input-field" requiredMessage="erforderlich">
                             <f:validateLength minimum="2"/>
                         </h:inputText>
                         <h:message for="firstName" styleClass="validation-message"/>
@@ -27,15 +27,15 @@
                     <h:outputLabel for="lastName" value="Nachname:" styleClass="input-label"/>
                     <h:panelGroup layout="block">
                         <h:inputText required="true" id="lastName" value="#{registerBean.lastName}"
-                                     styleClass="input-field"/>
+                                     styleClass="input-field" requiredMessage="erforderlich"/>
                         <h:message for="lastName" styleClass="validation-message"/>
                     </h:panelGroup>
 
                     <h:outputLabel for="telephone" value="Telefon:" styleClass="input-label"/>
                     <h:panelGroup layout="block">
                         <h:inputText required="true" id="telephone" value="#{registerBean.telephone}"
-                                     styleClass="input-field">
-                            <f:validateRegex pattern="^\+?[0-9\s]+$"/>
+                                     styleClass="input-field" requiredMessage="erforderlich" validatorMessage="ungültiges Telephone">
+                            <f:validateRegex pattern="^\+?[0-9\s]+$" for="telephone"/>
                         </h:inputText>
                         <h:message for="telephone" styleClass="validation-message"/>
                     </h:panelGroup>
@@ -48,17 +48,22 @@
                         <h:message for="email" styleClass="validation-message"/>
                     </h:panelGroup>
 
-                    <h:outputLabel for="password" value="Passwort:" styleClass="input-label"/>
+                    <h:outputLabel for="password"  value="Passwort:" styleClass="input-label"/>
                     <h:panelGroup layout="block">
                         <h:inputSecret required="true" id="password" value="#{registerBean.password}"
-                                       styleClass="input-field">
-                            <f:validateLength minimum="7"/>
+                                       styleClass="input-field" requiredMessage="erforderlich" validatorMessage="nicht >= 6">
+                            <f:validateLength minimum="6" for="password"/>
                         </h:inputSecret>
                         <h:message for="password" styleClass="validation-message"/>
                     </h:panelGroup>
                 </h:panelGrid>
 
-                <h:commandButton value="Registrieren" action="#{registerBean.register}" styleClass="login-button"/>
+                <h:commandButton value="Registrieren"
+                                 action="#{registerBean.register}"
+                                 styleClass="login-button"
+                                 actionListener="#{registerBean.validateForm}">
+                    <f:ajax execute="@form" render="@form" />
+                </h:commandButton>
                 <h:messages globalOnly="true" style="color:red;"/>
             </h:form>
 

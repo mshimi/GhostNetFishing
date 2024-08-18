@@ -7,6 +7,7 @@ import com.example.ghostfishingnet.app.util.TransactionUtils;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 
 
@@ -15,27 +16,35 @@ public class SaviorRepository {
 
 
     @Inject
-    EntityManager entityManager;
+    EntityManagerFactory entityManagerFactory;
 
+    @Inject
+    TransactionUtils transactionUtils;
 
     public void save(Savior savior) {
-        TransactionUtils.executeTransaction(entityManager,(em)->{
+        transactionUtils.executeTransaction((em)->{
             em.persist(savior);
         });
     }
 
     public void update(Savior net) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.merge(net); // Merge the entity to update its state in the database
-            transaction.commit();
-        } catch (RuntimeException ex) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw ex; // Rethrow the exception after rollback
-        }
+//     EntityManager   entityManager = entityManagerFactory.createEntityManager();
+//        EntityTransaction transaction = entityManager.getTransaction();
+//        try {
+//            transaction.begin();
+//            entityManager.merge(net); // Merge the entity to update its state in the database
+//            transaction.commit();
+//        } catch (RuntimeException ex) {
+//            if (transaction.isActive()) {
+//                transaction.rollback();
+//            }
+//            throw ex; // Rethrow the exception after rollback
+//        }
+
+        transactionUtils.executeTransaction(em-> {
+            em.merge(net);
+        });
+
     }
 }
 

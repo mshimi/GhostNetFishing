@@ -5,6 +5,7 @@ import com.example.ghostfishingnet.Authentication.application.models.Authstate;
 import com.example.ghostfishingnet.Authentication.application.models.UnAuthenticatedState;
 import com.example.ghostfishingnet.Authentication.domain.service.AuthenticationService;
 import com.example.ghostfishingnet.app.entities.User;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
@@ -15,13 +16,12 @@ import java.io.Serializable;
 
 
 @Named
-@ViewScoped
-
+@RequestScoped
 public class LoginBean implements Serializable {
 
 
     @Inject
-    private AuthenticationService authService;
+    private AuthenticationService authenticationService;
 
     @Inject
     private AuthenticationBean authenticationBean;
@@ -58,12 +58,12 @@ public class LoginBean implements Serializable {
     private String message;
 
     public String login() {
-        Authstate authstate = authService.login(email, password);
+        Authstate authstate = authenticationService.loginInWithEmailAndPassword(email, password);
         String message = null;
         if (authstate instanceof AuthenticatedState) {
 
-            User user = ((AuthenticatedState) authstate).getUser();
-            authenticationBean.loginIn(user);
+
+            authenticationBean.changeAuthState(authstate);
             return "dashboard?faces-redirect=true";
         } else if (authstate instanceof UnAuthenticatedState) {
             message = ((UnAuthenticatedState) authstate).getMessage();

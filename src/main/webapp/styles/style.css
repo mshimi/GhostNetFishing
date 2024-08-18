@@ -23,7 +23,7 @@ h1 {
 .login-container {
     background: rgba(255, 255, 255, 0.5); /* White background with 80% transparency */
     padding: 20px;
-    height: 40%;
+    height: 50%;
     border-radius: 10px; /* Rounded edges */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: adds a slight shadow for better contrast */
 }

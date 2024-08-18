@@ -19,7 +19,7 @@
                <h:inputText id="email" value="#{loginBean.email}" />
 
                <h:outputLabel for="password" value="Passwort:" />
-               <h:inputSecret id="password" value="#{loginBean.password}" />
+               <h:inputSecret id="password" value="#{loginBean.password}" required="true" requiredMessage="erforderlich"/>
             </h:panelGrid>
             <h:commandButton value="Einloggen" action="#{loginBean.login}" styleClass="login-button" />
             <h:messages globalOnly="true" style="color:red;" />
@@ -31,6 +31,11 @@
          <div class="footer-container">
             <p>
                Haben Sie kein Konto? <h:link outcome="register.xhtml">Registrieren</h:link>
+            </p>
+         </div>
+         <div class="footer-container">
+            <p>
+               Haben Sie bereits ein Konto? <h:link outcome="login.xhtml">Einloggen</h:link>
             </p>
          </div>
       </div>

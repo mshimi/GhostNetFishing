@@ -10,12 +10,22 @@ import jakarta.persistence.Persistence;
 public class HibernateUtil {
     private final EntityManagerFactory entityManagerFactory;
 
+   static String PERSISTENCEUNITNAME = "myPersistenceUnitName" ;
     public HibernateUtil() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("jpa-hibernate-mysql");
+        entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCEUNITNAME);
     }
 
     @Produces
+    @ApplicationScoped
+  public   EntityManagerFactory getEntityManagerFactory(){
+        return entityManagerFactory;
+    }
+
+    @Produces
+    @ApplicationScoped
     public EntityManager createEntityManager() {
-        return entityManagerFactory.createEntityManager();
+
+       return    entityManagerFactory.createEntityManager();
+
     }
 }

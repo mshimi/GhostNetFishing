@@ -18,8 +18,6 @@ import java.util.List;
 public class DashboardMapBean implements Serializable {
 
 
-
-
     private final static MapModel<Net> simpleModel = new DefaultMapModel<>();
 
     private boolean isAllNets = false;
@@ -40,7 +38,7 @@ public class DashboardMapBean implements Serializable {
         }
 
      nets.forEach(net -> {
-         simpleModel.addOverlay(mapNetToMarket(net));
+         simpleModel.addOverlay(mapNetToMarker(net));
      });
     }
 
@@ -72,8 +70,10 @@ public class DashboardMapBean implements Serializable {
         return nets;
     }
 
-    private Marker<Net> mapNetToMarket (Net net){
-       Marker<Net> marker = new Marker<>(new LatLng(net.getLatitude(), net.getLongitude()), "Größe: " + net.getSize() + "M" , net);
+    private Marker<Net> mapNetToMarker (Net net){
+       Marker<Net> marker = new Marker<>(
+               new LatLng(net.getLatitude(), net.getLongitude()),
+               "Größe: " + net.getSize() + "M" , net);
 
     if(!net.getState().equals(NetState.Reported)){
         marker.setIcon(assignMarkerIcon(net.getState()));

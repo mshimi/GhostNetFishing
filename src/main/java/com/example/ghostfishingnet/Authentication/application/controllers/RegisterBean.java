@@ -1,22 +1,32 @@
 package com.example.ghostfishingnet.Authentication.application.controllers;
 
+import com.example.ghostfishingnet.Authentication.application.repositories.UserRepository;
 import com.example.ghostfishingnet.Authentication.domain.service.AuthenticationService;
 import com.example.ghostfishingnet.app.entities.Savior;
 import com.example.ghostfishingnet.app.entities.User;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 
 @Named
-@ViewScoped
+@RequestScoped
 public class RegisterBean implements Serializable {
 
 
     private final AuthenticationService authenticationService;
+
+
+
+
+    private static Logger logger = LoggerFactory.getLogger(RegisterBean.class);
+
 
 
     @Inject
@@ -74,11 +84,18 @@ public class RegisterBean implements Serializable {
 
 
     public String register() {
+        logger.warn("Register Method Started");
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        if (context.isValidationFailed()) {
+            logger.warn("Validation Error");
+            return null;
+        }
         String message = null;
 
         if (authenticationService.isEmailExists(email)) {
             message = "Email ist bereits registriert";
-
+            logger.warn("Email alread existes error");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
 
             return null;
@@ -97,9 +114,15 @@ public class RegisterBean implements Serializable {
                 user.setSavior(savior);
                 savior.setUser(user);
 
-                authenticationService.register(user);
-                return "login?faces-redirect=true";
+                User savedUser = authenticationService.register(user);
 
+                if (savedUser != null) {
+                    logger.info("savedUser " + savedUser.getEmail() );
+                    return "login?faces-redirect=true";
+                } else {
+                    logger.info("savedUser is null");
+                    throw new RuntimeException();
+                }
 
             } catch (RuntimeException e) {
                 message = "Etwas ist schief gelaufen, bitte später erneut versuchen!";
@@ -114,6 +137,14 @@ public class RegisterBean implements Serializable {
     }
 
 
+    public void validateForm(ActionEvent actionEvent) {
+        logger.info("validateFrom method Started");
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.isValidationFailed()) {
+            context.validationFailed();
+        }
+    }
 }
 
 

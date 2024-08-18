@@ -67,19 +67,27 @@
                     <f:setPropertyActionListener value="#{net}" target="#{dashBoardTableBean.selectedNet}" />
                 </p:commandButton>
 
-                <p:commandButton  rendered="#{dashBoardTableBean.selectedFilter.toString() == 'ReportedNets' }" icon="pi pi-plus" title="Zur Rettungsliste hinzufügen" actionListener="#{dashBoardTableBean.addNetToMyRescueList(net)}" update="@form:netTable" >
+                <p:commandButton  rendered="#{dashBoardTableBean.selectedFilter.toString() == 'ReportedNets' }"
+                                  icon="pi pi-plus" title="Zur Rettungsliste hinzufügen"
+                                  actionListener="#{dashBoardTableBean.addNetToMyRescueList(net)}" update="@form:netTable" >
                     <f:setPropertyActionListener value="#{net}" target="#{dashBoardTableBean.selectedNet}" />
                 </p:commandButton>
 
-                <p:commandButton rendered="#{dashBoardTableBean.selectedFilter.toString() == 'MyRescueNets' }" icon="pi pi-times" title="Aus Rettungsliste entfernen" actionListener="#{dashBoardTableBean.RemoveNetFromMyRescueList(net)}" update="@form:netTable" >
+                <p:commandButton rendered="#{dashBoardTableBean.selectedFilter.toString() == 'MyRescueNets' }"
+                                 icon="pi pi-times" title="Aus Rettungsliste entfernen"
+                                 actionListener="#{dashBoardTableBean.RemoveNetFromMyRescueList(net)}" update="@form:netTable" >
                     <f:setPropertyActionListener value="#{net}" target="#{dashBoardTableBean.selectedNet}" />
                 </p:commandButton>
 
-                <p:commandButton rendered="#{dashBoardTableBean.selectedFilter.toString() == 'MyRescueNets' }" icon="pi pi-check" title="Als Geborgen Melden" actionListener="#{dashBoardTableBean.setNetAsSaved(net)}" update="@form:netTable"  >
+                <p:commandButton rendered="#{dashBoardTableBean.selectedFilter.toString() == 'MyRescueNets' }"
+                                 icon="pi pi-check" title="Als Geborgen Melden"
+                                 actionListener="#{dashBoardTableBean.setNetAsSaved(net)}" update="@form:netTable"  >
                     <f:setPropertyActionListener value="#{net}" target="#{dashBoardTableBean.selectedNet}" />
                 </p:commandButton>
 
-                <p:commandButton rendered="#{dashBoardTableBean.selectedFilter.toString() == 'MyRescueNets' }" icon="pi pi-exclamation-triangle" title="Als Verschollen Melden" actionListener="#{dashBoardTableBean.setNetStateAsDisappeared(net)}" update="@form:netTable">
+                <p:commandButton rendered="#{dashBoardTableBean.selectedFilter.toString() == 'MyRescueNets' }"
+                                 icon="pi pi-exclamation-triangle" title="Als Verschollen Melden"
+                                 actionListener="#{dashBoardTableBean.setNetStateAsDisappeared(net)}" update="@form:netTable">
                     <f:setPropertyActionListener value="#{net}" target="#{dashBoardTableBean.selectedNet}" />
                 </p:commandButton>
 

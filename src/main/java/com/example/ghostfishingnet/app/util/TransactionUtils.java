@@ -1,16 +1,25 @@
 package com.example.ghostfishingnet.app.util;
 
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 
+@Stateless
 public class TransactionUtils {
 
+    @Inject
+    EntityManagerFactory entityManagerFactory;
 
-    public static void executeTransaction(EntityManager em, TransactionalOperation operation) throws RuntimeException {
-        EntityTransaction transaction = em.getTransaction();
+    public  void executeTransaction( TransactionalOperation operation) throws RuntimeException {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            operation.execute(em);
+            operation.execute(entityManager);
             transaction.commit();
         } catch (RuntimeException ex) {
             if (transaction.isActive()) {
@@ -18,8 +27,13 @@ public class TransactionUtils {
             } else {
                 throw ex;
             }
-        } finally {
-            em.close();
         }
+//        finally {
+//
+//            em.close();
+//        }
     }
+
+
+
 }

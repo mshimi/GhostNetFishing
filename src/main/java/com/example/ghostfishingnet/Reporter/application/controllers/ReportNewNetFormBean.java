@@ -21,24 +21,34 @@ import java.io.Serializable;
 @ViewScoped
 public class ReportNewNetFormBean implements Serializable {
 
-private final    AuthenticationBean authenticationBean;
+    private final AuthenticationBean authenticationBean;
 
-  private final  ReporterService reporterService;
+    private final ReporterService reporterService;
+
+    private final ReportedNetsTableBean reportedNetsTableBean;
 
     @Inject
 
-    public ReportNewNetFormBean (AuthenticationBean authenticationBean, ReporterService reporterService){
+    public ReportNewNetFormBean(AuthenticationBean authenticationBean, ReporterService reporterService, ReportedNetsTableBean reportedNetsTableBean) {
         this.authenticationBean = authenticationBean;
         this.reporterService = reporterService;
+        this.reportedNetsTableBean = reportedNetsTableBean;
     }
 
 
     @PostConstruct
-    private void init(){
+    private void init() {
         anonymous = true;
         assignAssignedUserToInputFields();
 
     }
+
+
+    private void updateTable() {
+        reportedNetsTableBean.refreshNets();
+    }
+
+
     public Integer getSize() {
         return size;
     }
@@ -70,7 +80,6 @@ private final    AuthenticationBean authenticationBean;
     public void setAnonymous(boolean anonymous) {
         this.anonymous = anonymous;
     }
-
 
 
     private Integer size;
@@ -109,27 +118,20 @@ private final    AuthenticationBean authenticationBean;
     private String reporterTelephone;
 
 
-
-
-    public void save() throws IOException {
-
-        try {
+    public void save()  {
             reporterService.reportGhostNet(createNetObject());
             reset();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Net reported successfully"));
-
-        } catch (Exception e) {
-
-//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error reporting net", e.getMessage()));
-        }
-
-
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage("erfolgreich gemeldet",
+                                    "Danke für Ihre Hilfe"));
+            updateTable();
     }
 
 
-    private Net createNetObject(){
+    private Net createNetObject() {
         Net net = new Net();
-        if(!anonymous){
+        if (!anonymous) {
             NetReporter netReporter = new NetReporter();
             netReporter.setFirstName(reporterFirstName);
             netReporter.setLastName(reporterLastName);
@@ -142,23 +144,23 @@ private final    AuthenticationBean authenticationBean;
         net.setSize(size);
         return net;
     }
+
     public void onPointSelect(PointSelectEvent event) {
         LatLng latlng = event.getLatLng();
         latitude = latlng.getLat();
         longitude = latlng.getLng();
 
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Location Selected",
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Standort ausgewählt",
                         "Latitude: " + latitude + ", Longitude: " + longitude));
     }
 
 
-
-    public void reset(){
+    public void reset() {
         this.anonymous = true;
         this.latitude = null;
         this.longitude = null;
-        if(authenticationBean.isLoggedIn()){
+        if (authenticationBean.isLoggedIn()) {
             assignAssignedUserToInputFields();
         } else {
             this.reporterFirstName = null;
@@ -168,12 +170,11 @@ private final    AuthenticationBean authenticationBean;
         this.size = null;
 
 
-
     }
 
 
-    private void assignAssignedUserToInputFields(){
-        if(authenticationBean.isLoggedIn()){
+    private void assignAssignedUserToInputFields() {
+        if (authenticationBean.isLoggedIn()) {
             this.reporterFirstName = authenticationBean.getUser().getSavior().getFirstName();
             this.reporterLastName = authenticationBean.getUser().getSavior().getLastName();
             this.reporterTelephone = authenticationBean.getUser().getSavior().getTelephone();
@@ -181,10 +182,9 @@ private final    AuthenticationBean authenticationBean;
     }
 
 
-
-    public void deleteFormValues (){
+    public void deleteFormValues() {
         reset();
-        PrimeFaces.current().resetInputs("j_idt14:new-net-form");
+        PrimeFaces.current().resetInputs("tabs-view:new-net-form");
     }
 
 

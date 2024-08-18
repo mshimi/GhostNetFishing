@@ -16,7 +16,7 @@
                         <p:commandButton value="zurücksetzen" icon="pi pi-refresh"
                                          action="#{reportNewNetFormBean.deleteFormValues}"
                                          process="@this"
-                                         update="j_idt14:new-net-form"
+                                         update="tabs-view:new-net-form"
 
                                          styleClass="mr-2 ui-button-outlined">
                         </p:commandButton>
@@ -129,7 +129,7 @@
             </p:divider>
 
             <p:commandButton value="Jetzt melden" icon="ui-icon-check" action="#{reportNewNetFormBean.save}"
-                             update="@form"
+                             update="@form tabs-view:reported-nets-form:reported-nets-table"
                              ajax="true"
                              />
 
